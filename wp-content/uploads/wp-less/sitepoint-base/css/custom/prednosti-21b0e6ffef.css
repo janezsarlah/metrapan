@@ -1,0 +1,61 @@
+.prednost ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  font-size: 0;
+  margin-left: -5px;
+  margin-right: -5px;
+  margin-bottom: 80px;
+}
+.prednost ul li {
+  margin: 0;
+  width: 25%;
+  display: inline-block;
+  font-size: 12px;
+  padding: 5px;
+  box-sizing: border-box;
+}
+.prednost ul li a {
+  width: 100%;
+  height: 100%;
+  display: block;
+  position: relative;
+  text-decoration: none;
+}
+.prednost .prednost-container {
+  min-height: 200px;
+}
+.prednost .prednost-title {
+  color: #868686;
+  font-size: 30px;
+  font-weight: 500;
+  text-decoration: none;
+  text-align: center;
+}
+.prednost .prednost-icon {
+  width: 75px;
+  height: 75px;
+  margin: auto;
+  margin-bottom: 20px;
+}
+.prednost .prednost-text {
+  color: #868686;
+  font-size: 14px;
+  font-weight: 400;
+  text-align: center;
+}
+@media (max-width: 1024px) {
+  .prednost ul li {
+    width: 50%;
+  }
+}
+@media (max-width: 768px) {
+  .prednost ul li {
+    width: 50%;
+  }
+}
+@media (max-width: 450px) {
+  .prednost ul li {
+    width: 100%;
+  }
+}

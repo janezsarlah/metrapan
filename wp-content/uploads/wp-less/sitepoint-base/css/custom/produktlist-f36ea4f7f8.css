@@ -1,0 +1,106 @@
+.produktlist {
+  margin-top: 40px;
+}
+.produktlist ul {
+  list-style: none;
+  margin-bottom: 20px;
+  vertical-align: top !important;
+}
+.produktlist ul li {
+  margin: 0;
+  margin-top: 20px;
+  margin-bottom: 20px;
+  width: 33%;
+  display: inline-block;
+  font-size: 12px;
+  padding: 5px;
+  box-sizing: border-box;
+  text-align: center;
+  vertical-align: top !important;
+}
+.produktlist ul li a {
+  width: 100%;
+  height: 100%;
+  display: block;
+  position: relative;
+  text-decoration: none;
+}
+.produktlist .produktlist-title {
+  font-size: 20px;
+  text-transform: uppercase;
+  font-weight: 600;
+}
+.produktlist .produktlist-text {
+  font-size: 14px;
+  font-weight: 400;
+}
+.produktlist .produktlist-btn {
+  background-color: #FFCB05;
+  color: white;
+  width: 90px;
+  margin: auto;
+  border-radius: 5px;
+}
+.produktlist .produktlist-imagecontainer {
+  background-position: center;
+  background-size: contain;
+  background-repeat: no-repeat;
+  width: 85%;
+  margin: auto;
+  min-height: 250px;
+}
+.pagination {
+  width: 100%;
+  text-align: center;
+}
+.pagination ul {
+  list-style: none;
+  margin-bottom: 20px;
+}
+.pagination ul li {
+  margin: 0;
+  width: 50px;
+  display: inline-block;
+  font-size: 12px;
+  padding: 5px;
+  box-sizing: border-box;
+  text-align: center;
+}
+.pagination ul li a {
+  width: 100%;
+  height: 100%;
+  display: block;
+  position: relative;
+  text-decoration: none;
+}
+.pagination .pagination-navbtn {
+  border: 1px solid #c1c1c1;
+  height: 30px;
+  width: 30px;
+  padding-top: 5px;
+}
+.pagination .pagination-navbtn:hover {
+  background-color: #FFCB05;
+  cursor: pointer;
+  cursor: hand;
+}
+.seperator {
+  color: #c1c1c1;
+  margin-bottom: 50px;
+  margin-top: 20px;
+}
+@media (max-width: 1024px) {
+  .produktlist ul li {
+    width: 33%;
+  }
+}
+@media (max-width: 768px) {
+  .produktlist ul li {
+    width: 100%;
+  }
+}
+@media (max-width: 450px) {
+  .produktlist ul li {
+    width: 100%;
+  }
+}

@@ -1,0 +1,8 @@
+.kontakti .kontakti-wrapper {
+  list-style: none;
+}
+.kontakti .kontakti-container {
+  width: 33%;
+  display: inline-block;
+  text-align: center;
+}

@@ -1,0 +1,108 @@
+@yellow: #FFC829;
+@black: #2B2E31;
+@light-grey: #C5C9CA;
+@red: #DB262F;
+@grey: #878C90;
+
+
+.carListing{
+	margin-bottom: 100px;
+	ul{
+		list-style: none;
+		margin:0;
+		padding: 0;
+	    font-size: 0;
+        margin-left: -5px;
+    	margin-right: -5px;
+	    margin-bottom: 40px;
+	}
+	ul li{
+		margin: 0;
+		width: 25%;
+		display: inline-block;
+		font-size: 12px;
+	    padding: 5px;
+    	box-sizing: border-box;
+
+    	a{
+		    width: 100%;
+		    height: 100%;
+		    display: block;
+		    position: relative;
+    	}
+	}
+	.carListing-container{
+	    height: 200px;
+	    background-position: center;
+	    background-size: cover;
+	    background-repeat: no-repeat;
+	    
+	}
+	.carListing-title{
+	    padding: 25px 15px;
+	    box-sizing: border-box;
+	    position: absolute;
+	    width: 100%;
+	    bottom: 0;
+	    background: rgba(0,0,0,0.5);
+	    color: #fff;
+	    font-size: 17px;
+	    text-transform: uppercase;
+	    line-height: 120%;
+	    min-height: 90px;
+	    vertical-align: middle;
+	    z-index: 2;
+	}
+	.carListing-overlay{
+	    position: absolute;
+	    width: 100%;
+	    height: 100%;
+	    background-color: rgba(255, 0, 0, 0.2);
+	    opacity: 0;
+	    transition: opacity .25s ease-in-out;
+		-moz-transition: opacity .25s ease-in-out;
+		-webkit-transition: opacity .25s ease-in-out;
+		z-index: 1;
+	}
+	ul li a:hover .carListing-overlay{
+		opacity: 1;
+	}
+	.carListing-badge{
+	    position: absolute;
+	    background: @yellow;
+	    color: #fff;
+	    padding: 5px 20px;
+	    font-size: 18px;
+	    z-index: 2;
+	    left: 0;
+	    top: 20px;
+	}
+
+
+}
+.single-cars{
+	.header-meta{
+		display: none;
+	}
+}
+.post-type-archive-cars{
+	.header-meta{
+		display: none;
+	}
+}
+
+@media (max-width: 1024px){
+	.carListing ul li{
+        width: 33.333%;
+    }
+}
+@media (max-width: 768px){
+	.carListing ul li{
+        width: 50%;
+    }
+}
+@media (max-width: 450px){
+	.carListing ul li{
+        width: 100%;
+    }
+}
