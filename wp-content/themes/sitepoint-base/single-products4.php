@@ -31,107 +31,126 @@ get_header(); ?>
 
                    
 					<div class="singleproduct-left">
-                        <ul>
-                            <li>
+                  
 						<div class="singleproduct-imgcontainer">
-							<!---<img class="singleproduct-img" src="<?php //echo $img; ?>">--->
                             <?php include( get_stylesheet_directory() . '/parts/content.php'); ?>
 						</div>
-                                
-                            </li>
-                            <li>
+                         
 						<div class="singleproduct-icons">
-                            <ul>
-							<?php
-								foreach ($icons as $icon){
+                        
+							<?php foreach ($icons as $icon) : ?>
+								<?php
 									$icontitle = get_the_title($icon->ID);
 									$icontext = get_post_field("post_content", $icon->ID);
 									$iconsrc = get_field("icon", $icon->ID);
-									?>
-									<li>
-									<div class="singleproduct-iconcontainer">
+								?>
+				
+								<div class="singleproduct-iconcontainer">
+									<div class="singleproduct-iconcontainer-table">
 										<img class="singleproduct-icon" src="<?php echo $iconsrc["url"]; ?>">
 										<div class="singleproduct-icontitle"><?php echo $icontitle; ?></div>
+										<?php if ( $icontext ) : ?>
+											<div class="singleproduct-tip hide"><?php echo $icontext; ?></div>
+										<?php endif; ?>
 									</div>
-									</li>
-									<?php
-								}
-							?>
-                            </ul>
+								</div>
+								
+							<?php endforeach; ?>
+                  
 						</div>
-                            </li>
-                        </ul>
+
+						<div class="barve">
+							<?php if ( $barve && $barvep ) : ?>
+								<div class="singleproduct-title sub">Barve:</div>
+							<?php endif; ?>
+							
+							<?php if ( $barve ) : ?>
+
+								<ul>
+		                            <li><div class="barve-blacktext barve-container">Standard</div></li>
+									<?php
+										foreach ($barve as $barva){
+										    $code = get_field("barva", $barva->ID);
+										    $barva_title = get_the_title($barva->ID);
+										    $textColor = get_field("barva_text_color", $barva->ID);
+										    echo "<li><div class='barve-container' style='background-color:".$code."; color: " . $textColor . ";'>".$barva_title."</div></li>";
+											
+											
+										}
+		                            ?>
+								</ul>
+							<?php endif; ?>
+
+							<?php if ( $barvep ) : ?>
+								<ul>
+		                            <li><div class="barve-blacktext barve-container">Standard plus</div></li>
+									<?php
+										foreach ($barvep as $barvap){
+			                                $codep = get_field("barva", $barvap->ID);
+			                                $barvap_title = get_the_title($barvap->ID);
+										    $textColor = get_field("barva_text_color", $barvap->ID);
+			                                echo "<li><div class='barve-container' style='background-color:".$codep."; color: " . $textColor . ";'>".$barvap_title."</div></li>";
+			                            }
+		                            ?>
+								</ul> 
+							<?php endif; ?>
+
+							<?php if ( $barve && $barvep ) : ?>
+								<div class="singleproduct-text barve-x">*Ostale barve po naročilu</div>
+							<?php endif; ?>
+						</div>
+               
 					</div>
 					
 			
 					<div class="singleproduct-right">
-						<div class="singleproduct-title"><?php echo $title; ?></div>
+						<div class="singleproduct-title main"><?php echo $title; ?></div>
 						<div class="singleproduct-text"><?php echo $text; ?></div>
 						<div class="singleproduct-opis"><?php echo $opis; ?></div>
 						<hr class="singleproduct-seperator">
-						<div class="singleproduct-title">TEHNIČNI PODATKI:</div><br>
-						<div class="singleproduct-text">Pokrivna širina panela: <?php echo $data1; ?></div>
-						<div class="singleproduct-text">Debelina izolaacije: <?php echo $data2; ?></div>
-						<div class="singleproduct-text">Nanos cinka: <?php echo $data3; ?></div><br>
-                        <br>
+						<div class="singleproduct-title sub">TEHNIČNI PODATKI:</div>
+						
+						<?php if ( $data1 ) : ?>
+							<div class="singleproduct-text data"><span>Pokrivna širina panela:</span> <?php echo $data1; ?></div>
+						<?php endif; ?>
+
+						<?php if ( $data2 ) : ?>
+							<div class="singleproduct-text data"><span>Debelina izolaacije:</span> <?php echo $data2; ?></div>
+						<?php endif; ?>
+
+						<?php if ( $data3 ) : ?>
+							<div class="singleproduct-text data"><span>Nanos cinka:</span> <?php echo $data3; ?></div>
+                		<?php endif; ?>
+
+						<div class="seperator-space"></div>
+
 						<div class="singleproduct-text">Če potrebujete več informacij (velikosti, namestitve, dolžina, teža), prenesete naslednje dokumente</div>
-                        <div class="singleproduct-file"><a href="<?php echo $file; ?>">Prenesi dokumentacijo</a></div>
-						<hr class="singleproduct-seperator">
-						<div class="singleproduct-title">DODATKI:</div><br>
-						<div class="dodatki">
-						<?php
-							$col = 0;
-							foreach ($dodatki as $dodatek)
-							{
-								if ($col == 0)
-								{
-									echo "<ul>";
-								}
-								$dodatektitle = get_the_title($dodatek->ID);
-								$dodatektext = get_post_field("post_content", $icon->ID);
-								$dodatekimg = wp_get_attachment_image_src(get_post_thumbnail_id( $dodatek->ID),"large" )[0];
-								$col = $col + 1;
-								?>
-								
-								<li>
-								<img class="dodatki-img" src="<?php echo $dodatekimg; ?>">
-								<div class="dodatki-title"><?php echo $dodatektitle; ?></div>
-								<div class="dodatki-text"><?php echo $dodatektext; ?></div>
-								
-								</li>
-								<?php
-								if ($col == 3){
-									echo "</ul>";
-									$col = 0;
-								}
-							}
-						?>
-						</div>
+                        <?php if ( $file ) : ?>
+                        	<div class="singleproduct-file"><a href="<?php echo $file; ?>"><img src="<?php echo get_template_directory_uri() . '/img/file.png'; ?>">Prenesi dokumentacijo</a></div>
+						<?php endif; ?>
+						<?php if ( $dodatki ) : ?>
+							<hr class="singleproduct-seperator">
+							<div class="singleproduct-title">DODATKI:</div><br>
+							<div class="dodatki">
+							
+								<?php foreach ( $dodatki as $dodatek ) : ?>
+									<?php			
+										$dodatektitle = get_the_title($dodatek->ID);
+										$dodatektext = get_post_field("post_content", $icon->ID);
+										$dodateklink = get_post_permalink($dodatek->ID);
+										$dodatekimg = wp_get_attachment_image_src(get_post_thumbnail_id( $dodatek->ID),"large" )[0];
+									?>
+									
+									<div class="dodatki-item">
+										<img class="dodatki-img" src="<?php echo $dodatekimg; ?>">
+										<div class="dodatki-title"><a href="<?php echo $dodateklink; ?>"><?php echo $dodatektitle; ?></a></div>
+										<div class="dodatki-text"><?php echo $dodatektext; ?></div>
+									</div>
+								<?php endforeach; ?>
+							</div>
+						<?php endif ?>
 					</div>
-					<div class="barve">
-						<div class="singleproduct-title">Barve:</div><br>
-							<ul>
-                                <li><div class="barve-blacktext barve-container">Standard</div></li>
-								<?php
-                                 foreach ($barve as $barva){
-                                     $code = get_field("barva", $barva->ID);
-                                     $barva_title = get_the_title($barva -> ID);
-                                     echo "<li><div class='barve-container' style='background-color:".$code.";'>".$barva_title."</div></li>";
-                                 }
-                                ?>
-							</ul>
-							<ul>
-                                <li><div class="barve-blacktext barve-container">Standard plus</div></li>
-								<?php
-                                 foreach ($barvep as $barvap){
-                                     $codep = get_field("barva", $barvap->ID);
-                                     $barvap_title = get_the_title($barvap -> ID);
-                                     echo "<li><div class='barve-container' style='background-color:".$codep.";'>".$barvap_title."</div></li>";
-                                 }
-                                ?>
-							</ul> 
-							<div class="singleproduct-text barve-x">*Ostale barve po naročilu</div>
-						</div>
+					
 										
 					<?php the_posts_pagination( 'nav-below' ); ?>
 

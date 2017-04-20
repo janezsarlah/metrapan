@@ -4,16 +4,13 @@
 $content = get_field("produkti", get_the_ID());
 //debug($content[2]['produktlist']);
 
-if(count($content) > 0){
+if( $content ){
 	foreach ($content as $key => $value) {
 		
 		switch($value["acf_fc_layout"]){
 			case "produkti_header": 
                 include( get_stylesheet_directory() . '/parts/produkti.php');
 				break;
-            case "produkticons":
-                include( get_stylesheet_directory() . '/parts/produkticons.php');
-                break;
             case "produktlist":
             case "produktlist2":
             case "produktlist3":

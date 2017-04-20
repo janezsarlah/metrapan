@@ -1036,13 +1036,35 @@ function my_script_enqueuer() {
 
    wp_enqueue_script( 'jquery' );
    wp_enqueue_script( 'products' );
- 
+
 }
+
+/**
+ * This function modifies the main WordPress query to include an array of 
+ * post types instead of the default 'post' post type.
+ *
+ * @param object $query  The original query.
+ * @return object $query The amended query.
+ */
+function av_cpt_search( $query ) {
+    if ( $query->is_search ) {
+		$query->set( 'post_type', array( 'post', 'page', 'post_type_products' ) );
+    }
+    
+    return $query;
+}
+
+add_filter( 'pre_get_posts', 'av_cpt_search' );
 
 
 /*
 * Include helper functions
 */
 include('inc/helper_functions.php');
+
+/*
+* Include ajax functions
+*/
+include('inc/ajax_functions.php');
 
 

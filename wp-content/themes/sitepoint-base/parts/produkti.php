@@ -1,206 +1,301 @@
 <?php
-    
     $productHeaders = $value["produkti_header"];
 
+    //debug(get_term_by('slug',  'ravne', 'kategorijeproduktov'));
 
-    $count = 0;
-    if (count($value["produkti_header"]) > 0) {
-        foreach ($value["produkti_header"] as $key => $produkt) {
-            $count = $count + 1;
-            if ($count == 1){
-                $title = $produkt -> post_title;
-                $link = $produkt -> guid;
-                $text = get_post_field('post_content', $produkt -> ID);
-                $id = $produkt -> ID;
-            }
-            
-            if ($count == 2){
-                $title2 = $produkt -> post_title;
-                $link2 = $produkt -> guid;
-                $text2 = get_post_field('post_content', $produkt -> ID);
-                $id2 = $produkt -> ID;
-            }
-            
-            if ($count == 3){
-                $title3 = $produkt -> post_title;
-                $link3 = $produkt -> guid;
-                $text3 = get_post_field('post_content', $produkt -> ID);
-                $id3 = $produkt -> ID;
-            }
-            
-            if ($count == 4){
-                $title4 = $produkt -> post_title;
-                $link4 = $produkt -> guid;
-                $text4 = get_post_field('post_content', $produkt -> ID);
-                $id4 = $produkt -> ID;
-            }
-             
-            ?>
-            
-        <?php
-        }    
-    }
-    
-    $count = 0;
+
 ?>
-
 
 <div class="produkt" style="background-image: url('http://meltal.oss-dev.av-studio.si/metrapan/wp-content/uploads/2017/03/bg2.png')">
     <div class="produkt-left">
-        <div class="produkt-container">
-            <div class="produkt-container-title">
-                <span>Strešne kritine in fasadni paneli</span> 
-                <span class="plus">+</span>
-            </div>
-            <ul class="podkategorija " id="dropdownmenu">
+        <div class="produkt-left-container">
+            <?php 
 
-                <?php 
+                $args = array( 
+                    'post_type' => 'products',
+                    'posts_per_page' => -1,
+                    'post_status' => 'any'
+                );
 
-                    $args = array( 
-                        'post_type' => 'products',
-                        'posts_per_page' => -1,
-                        'post_status' => 'any'
-                    );
+                $productsCategoryes = getPostCategorys( $args );
+            ?>
+            <div class="produkt-container <?php echo count( $productsCategoryes ) > 0 ? "filter" : ""; ?>" data-posttype="products" data-rightcontent="1">
 
-                    $productsCategoryes = getPostCategorys( $args );
-                ?>
+                <div class="produkt-container-title">
+                    <span class="title">Strešne kritine in fasadni paneli</span> 
+                </div>
 
                 <?php if ( count( $productsCategoryes ) > 0 ) : ?>
-                    <?php foreach ( $productsCategoryes as $cat ) : ?>
-                        <li data-posttype="products" data-catslug="<?php echo $cat ?>" class="buttoncommon podkategorija-line"><?php echo getCategoryName( $cat ); ?></li>
-                    <?php endforeach; ?>
+                    <ul class="podkategorija <?php echo count( $productsCategoryes ) > 5 ? "flex" : ""; ?>">
+                        <?php foreach ( $productsCategoryes as $cat ) : ?>
+                            <li data-catslug="<?php echo $cat ?>" class="buttoncommon podkategorija-line"><?php echo getCategoryName( $cat ); ?></li>
+                        <?php endforeach; ?>
+                    </ul>
                 <?php endif; ?>
 
-            </ul>
-        </div>
-        <div class="produkt-container">
-            <div class="produkt-container-title">
-                <span>Krovsko kleparski izdelki</span>
-                <span class="plus">+</span>
             </div>
-            <ul class="podkategorija seenone">
 
-                <?php 
+            <?php 
 
-                    $args = array( 
-                        'post_type' => 'products2',
-                        'posts_per_page' => -1,
-                        'post_status' => 'any'
-                    );
+                $args = array( 
+                    'post_type' => 'products2',
+                    'posts_per_page' => -1,
+                    'orderby'     => 'menu_order',
+                    'order'       => 'ASC',
+                    'post_status' => 'any'
+                );
 
-                    $productsCategoryes = getPostCategorys( $args );
-                    $counter = 0;
-                ?>
+                $productsCategoryes = getPostCategorys( $args );
+                $counter = 0;
+            ?>
+            <div class="produkt-container <?php echo count( $productsCategoryes ) > 0 ? "filter" : ""; ?>" data-posttype="products2" data-rightcontent="2">
+       
+
+                <div class="produkt-container-title">
+                    <span class="title">Krovsko kleparski izdelki</span>
+                </div>
 
                 <?php if ( count( $productsCategoryes ) > 0 ) : ?>
-                    <?php foreach ( $productsCategoryes as $cat ) : ?>
-                        <li data-posttype="products2" data-catslug="<?php echo $cat ?>" class="buttoncommon podkategorija-line"><?php echo getCategoryName( $cat ); ?></li>
-                    <?php endforeach; ?>
+                    <ul class="podkategorija <?php echo count( $productsCategoryes ) > 5 ? "flex" : ""; ?>">
+                        <?php foreach ( $productsCategoryes as $cat ) : ?>
+                            <li data-catslug="<?php echo $cat ?>" class="buttoncommon podkategorija-line"><?php echo getCategoryName( $cat ); ?></li>
+                        <?php endforeach; ?>
+                    </ul>
                 <?php endif; ?>
 
-            </ul>
-        </div>
-        <div style="text-decoration: none;">
-            <div class="produkt-container buttoncommon">
+            </div>
+
+            <?php 
+
+                $args = array( 
+                    'post_type' => 'products3',
+                    'posts_per_page' => -1,
+                    'post_status' => 'any'
+                );
+
+                $productsCategoryes = getPostCategorys( $args );
+                $counter = 0;
+            ?>
+
+            <div class="produkt-container <?php echo count( $productsCategoryes ) > 0 ? "filter" : ""; ?>" data-posttype="products3" data-rightcontent="3">            
                 <div class="produkt-container-title">
-                    <span>Pritrdilni materiali in ostali izdelki</span>
+                    <span class="title">Pritrdilni materiali in ostali izdelki</span>
                 </div>
+
+                <?php if ( count( $productsCategoryes ) > 0 ) : ?>
+                    <ul class="podkategorija <?php echo count( $productsCategoryes ) > 5 ? "flex" : ""; ?>">
+                        <?php foreach ( $productsCategoryes as $cat ) : ?>
+                            <?php if ( getNumbAssociatedposts($cat) > 1 ) ?>
+                            <li data-catslug="<?php echo $cat ?>" class="buttoncommon podkategorija-line"><?php echo getCategoryName( $cat ); ?></li>
+                        <?php endforeach; ?>
+                    </ul>
+                <?php endif; ?>
+            </div>
+
+
+            <?php 
+
+                $args = array( 
+                    'post_type' => 'products4',
+                    'posts_per_page' => -1,
+                    'post_status' => 'any'
+                );
+
+                $productsCategoryes = getPostCategorys( $args );
+                $counter = 0;
+            ?>
+
+            <div class="produkt-container <?php echo count( $productsCategoryes ) > 0 ? "filter" : ""; ?>" data-posttype="products4" data-rightcontent="4">
+            
+
+                <div class="produkt-container-title">
+                    <span class="title">Nosilne trapezne pločevine</span>
+                </div>
+      
+                <?php if ( count( $productsCategoryes ) > 0 ) : ?>
+                    <ul class="podkategorija <?php echo count( $productsCategoryes ) > 5 ? "flex" : ""; ?>">
+                        <?php foreach ( $productsCategoryes as $cat ) : ?>
+                            <li data-catslug="<?php echo $cat ?>" class="buttoncommon podkategorija-line"><?php echo getCategoryName( $cat ); ?></li>
+                        <?php endforeach; ?>
+                    </ul>
+                <?php endif; ?>
             </div>
         </div>
-        <div style="text-decoration: none;">
-            <div class="produkt-container buttoncommon">
-                <div class="produkt-container-title">
-                   <span>Nosilne trapezne pločevine</span>
-                </div>
-            </div>
-        </div>
-    
-   
-	
     </div>
     
 
-    <div id="container-right-1" class="produkt-right">
-        <div class="emptyheightblock"> </div>
-        <div class="produkt-detail">
-            <div class="line"></div>
-            <div class="produkt-detail-title"><?php echo $title; ?></div><br>
-            <div class="produkt-detail-text"><?php echo $text; ?></div><br>
-            <!--button class="btn btn-default button1 produkt-detail-btn">Več</button-->
-        </div>
-    </div>
-    
-    <div id="container-right-2" class="produkt-right">
-        <div class="emptyheightblock"> </div>
-        <div class="produkt-detail">
-            <div class="line"></div>
-            <div class="produkt-detail-title"><?php echo $title2; ?></div><br>
-            <div class="produkt-detail-text"><?php echo $text2; ?></div><br>
-            <!--button class="btn btn-default button1 produkt-detail-btn">Več</button-->
-        </div>
-    </div>
-    
-    <div id="container-right-3" class="produkt-right">
-        <div class="emptyheightblock"> </div>
-        <div class="produkt-detail">
-            <div class="line"></div>
-            <div class="produkt-detail-title"><?php echo $title3; ?></div><br>
-            <div class="produkt-detail-text"><?php echo $text3; ?></div><br>
-            <!--button class="btn btn-default button1 produkt-detail-btn">Več</button-->
-        </div>
-    </div>
-    
-    <div id="container-right-4" class="produkt-right">
-        <div class="emptyheightblock"> </div>
-        <div class="produkt-detail">
-            <div class="line"></div>
-            <div class="produkt-detail-title"><?php echo $title4; ?></div><br>
-            <div class="produkt-detail-text"><?php echo $text4; ?></div><br>
-            <!--button class="btn btn-default button1 produkt-detail-btn">Več</button-->
-        </div>
-    </div>
+    <?php if ( count($productHeaders) > 0 ) : ?>
+        <?php $count = 0; ?>
+        <?php foreach ( $productHeaders as $pheader ) : ?>
+            <?php $count++; ?>
+            <div id="container-right-<?php echo $count; ?>" class="produkt-right <?php echo $count === 1 ? "active" : ""; ?>">
+                <div class="emptyheightblock"> </div>
+                <div class="produkt-detail">
+                    <div class="line"></div>
+                    <div class="produkt-detail-title"><?php echo $pheader->post_title; ?></div>
+                    <div class="produkt-detail-text"><?php echo get_post_field('post_content', $pheader->ID); ?></div><br>
+                </div>
+            </div>
+        <?php endforeach; ?>
+    <?php endif; ?>
+
 
     <div class="clearfix"></div>    
 
-    <script>
-        //hide all category details on initialization
-        
-        document.getElementById("container-right-1").style.display = "block";
-        document.getElementById("container-right-2").style.display = "none";
-        document.getElementById("container-right-3").style.display = "none";
-        document.getElementById("container-right-4").style.display = "none";
-    </script>
 </div>
 
+<div id="secondFilter" class="grid-container produkticons"></div>
+
+<div class="dinamic-title">
+    <span></span>
+</div>
+
+<div class="content-preloader hide">
+    <img src="<?php echo get_template_directory_uri() . '/img/ajax-loader.gif'?>">
+</div>
 
  <script type="text/javascript">
     (function($) {
 
         var categoryes = $('.produkt-left');
+        var rightContent = $('.produkt');
+        var produkticons = $('.produkticons');
+
+        // Trigger ajax if no sub filter
+        categoryes.find('.produkt-container').on('click', function() {
+            var _ = $(this); 
+            var post_type = _.data('posttype');
+            var datacontent = _.data('rightcontent');
+
+            rightContent.find('.produkt-right').removeClass('active');
+            rightContent.find('#container-right-' + datacontent).addClass('active');
+
+            if ( _.find('.podkategorija li').length > 0 ) return;
+            
+            var productTitle = _.find('.title').text();
+            $('.dinamic-title span').html(productTitle);
+
+            categoryes.find('.produkt-container ').removeClass('active');
+            _.addClass('active');
+
+            testAjax(post_type, '');
+        });
 
         // Trigger ajax call
         categoryes.find('.podkategorija li').on('click', function() {
-            var cat_slug = $(this).data('catslug');
-            var post_type = $(this).data('posttype');
-            console.log(cat_slug);
+            var _ = $(this);
+            var cat_slug = _.data('catslug');
+            var post_type = _.parents().eq(1).data('posttype');
+            var productTitle = _.parents().eq(1).find('.title').text();
+            categoryes.find('.podkategorija li').removeClass('active');
+            categoryes.find('.produkt-container ').removeClass('active');
+            _.parents().eq(1).addClass('active');
+            _.addClass('active');
+
+            $('.dinamic-title span').html(productTitle);
+
+            testAjax(post_type, cat_slug);
+            ajaxSubFilter(post_type, cat_slug);
+        });
+
+        categoryes.find('.produkt-container')
+            .mouseenter(function() {
+                if ( $(this).find('li').length > 0 ) categoryes.find('.produkt-left-container').addClass('open');
+            })
+            .mouseleave(function() {
+                categoryes.find('.produkt-left-container').removeClass('open');
+                
+            });
+
+        produkticons.delegate('.produkticons-iconcontainer', 'click', function() {
+            var _ = $(this);
+            var post_type = _.data('posttype');
+            var cat_slug = _.data('catslug');
             testAjax(post_type, cat_slug);
         });
 
-        categoryes.find('.produkt-container').on('click', function() {
+        function ajaxSubFilter(postType, slug) {
+            jQuery.ajax({
+                type: 'POST',
+                dataType: 'json',
+                url: myAjax.ajaxurl,
+                data: {
+                    'action': "getSecondFilter", 
+                    'catSlug': slug,
+                    'postType': postType
+                },
+                beforeSend: function(){
+                    $('.content-preloader').removeClass('hide');
+                    $('#list').addClass('hide');
+                },
+                success: function( response ) {
+                    $('.content-preloader').addClass('hide');
+                    $('#list').removeClass('hide');
+                    if (!response.error) {
+                        $("#secondFilter").html(response.data.html);
+                    }
+                },
+                error: function() {
+                    $('.content-preloader').addClass('hide');
+                    $('#list').removeClass('hide');
+                    console.log( 'Ne najdem podatkov. Prosimo poiskusite ponovno!' );
+                }
+            });
+        }
+    
 
-            var _ = $(this);
+        function testAjax(postType, neki) {
+            x = neki;
 
-            if ( _.find('.podkategorija').length > 0 ) {
-                _.parent().addClass('open');
-                categoryes.find('.produkt-container').removeClass('active');
-                _.addClass('active');
-            } else {
-                console.log(123);
-                _.parent().removeClass('open');
+                jQuery.ajax({
+                 type : "get",
+                 dataType : "json",
+                 url : myAjax.ajaxurl,
+                 data : {action: "my_user_test",
+                         value: x,post_type: postType},//, post_id : post_id, nonce: nonce},
+                beforeSend: function(){
+                    $('.content-preloader').removeClass('hide');
+                    $('#list').addClass('hide');
+                },
+                 success: function(response) {
+                     //console.log("response", response);
+                     //console.log("just html", response.data.btnvalue);
+                    $('.content-preloader').addClass('hide');
+                    $('#list').removeClass('hide');
+                     if (!response){
+                         //server error, return
+                         console.log("Napaka streznika");
+                         return;
+                     }
+                    
+                    if (response.error === true)
+                    { 
+                        alert(response.errorMessage);
+                        return; 
+                    }
+                        
+                    if (!response.data)
+                    { 
+                        alert("ni podatkov"); 
+                        return;
+                    }
+                    
 
-            }
+                    if(response.error === false) {
+                       jQuery("#list").html(response.data.html)
+                    }
+                    else {
+                       alert("Your vote could not be added")
+                    }
+                 }
+              });
+            
+            return;
 
-        });
+        }
+
 
     })(jQuery)
+
+        
 </script>

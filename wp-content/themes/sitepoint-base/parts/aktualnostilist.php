@@ -3,12 +3,9 @@
 $max_aktualnosti = 100;
 $col = 0;
 ?>
-<div class="aktualnostlist" style="">
-<div class="grid-container">
-<div class="line"></div>
-<div class="aktualnostlist-maintitle"></div>
-</div>
-	<div class="aktualnostlist-content grid-container">
+<div class="aktualnostlist">
+
+	<div class="aktualnostlist-content">
 		
 		<ul>
 			<?php

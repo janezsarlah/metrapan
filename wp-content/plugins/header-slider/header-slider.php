@@ -85,7 +85,7 @@ function hs_function($atts = []) {
         $result .='<div class="slide-content">';
         $result .='		<div class="title text"><div class="line"></div>'.wpautop(get_the_content()).'</div>';
 	    $result .='     <div class="text1"><p>'.get_field("content", $post->ID).'</p></div>';
-        $result .='     <div class="text"><a href="'.get_field("slider_link", $post->ID).'">'.get_field("slider_link_name", $post->ID).'<span>></span></a></div>';
+        $result .='     <div class="text"><a class="cta" href="'.get_field("slider_link", $post->ID).'">'.get_field("slider_link_name", $post->ID).'</a></div>';
         $result .='	</div>';
         $result .='</div>';
 	    $result .='</div>';

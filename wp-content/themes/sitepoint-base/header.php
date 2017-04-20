@@ -65,8 +65,14 @@
 				
 				<nav id="site-navigation" class="main-navigation" role="navigation">
 					<h3 class="menu-toggle assistive-text"><i class="fa fa-bars" aria-hidden="true"></i></h3>
-					<div class="assistive-text skip-link"><a href="#content" title="<?php esc_attr_e( 'Skip to content', 'sitepoint-base' ); ?>"><?php esc_html_e( 'Skip to content', 'sitepoint-base-theme' ); ?></a></div>
-						<?php wp_nav_menu( array( 'theme_location' => 'menu-1', 'menu_class' => 'navigation nav-menu', 'container_class' => 'navigation_container' ) ); ?>
+					<div class="assistive-text skip-link">
+						<a href="#content" title="<?php esc_attr_e( 'Skip to content', 'sitepoint-base' ); ?>"><?php esc_html_e( 'Skip to content', 'sitepoint-base-theme' ); ?></a>
+					</div>
+					<?php wp_nav_menu( array( 'theme_location' => 'menu-1', 'menu_class' => 'navigation nav-menu', 'container_class' => 'navigation_container' ) ); ?>
+
+					<div class="search_box">
+						<?php //get_search_form(); ?>
+					</div>
 				</nav> <!-- /.site-navigation.main-navigation -->
 				
 
@@ -80,6 +86,7 @@
 	if(get_field("slider_category", get_the_ID()))
 
     	echo do_shortcode("[header-slider category='".get_field("slider_category", get_the_ID())."']");
+    	
 	?>
 
 	<?php if ( get_header_image() ) { ?>

@@ -32,7 +32,7 @@ function getPostCategorys( $args ) {
 
     	if ( $categoryes != null ) {
     		foreach ($categoryes as $cat) {
-				if (!in_array( $cat->slug, $arrayOfCats) ) array_push( $arrayOfCats, $cat->slug );	
+				if (!in_array( $cat->slug, $arrayOfCats) && $cat->parent == 0 ) array_push( $arrayOfCats, $cat->slug );	
     		}
     	}
 	} 
@@ -48,4 +48,14 @@ function getPostCategorys( $args ) {
  */
 function getCategoryName( $catSlug ) {
 	return get_term_by('slug',  $catSlug, 'kategorijeproduktov')->name;
+}
+
+/**
+ * Get get the number of associated posts
+ *
+ * @param Category slug
+ * @return INT number of associated posts
+ */
+function getNumbAssociatedposts( $catSlug ) {
+	return get_term_by('slug',  $catSlug, 'kategorijeproduktov')->count;
 }
