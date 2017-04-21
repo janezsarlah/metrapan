@@ -38,9 +38,9 @@
 
 <form id="form-duplicator" method="post">
 	
-<?php if($statusCount >= 2)  :	?>
+<?php if($statusCount >= 1)  :	?>
 	<div style="font-size:14px; position: absolute; top:15px; right:25px">
-		<a href="admin.php?page=duplicator-about"  style="color:maroon"><i><i class="fa fa-check-circle"></i> <?php _e("Help Support Duplicator", 'duplicator') ?></i> </a>
+		<a href="admin.php?page=duplicator-about"  style="color:#448B6C"><i><i class="fa fa-handshake-o"></i> <?php _e("Help Promote Duplicator", 'duplicator') ?></i> </a>
 	</div>
 <?php endif; ?>	
 
@@ -214,7 +214,7 @@ THICK-BOX DIALOGS: -->
 	$confirm1->initConfirm();
 ?>
 
-<script type="text/javascript">
+<script>
 jQuery(document).ready(function($) 
 {
 	

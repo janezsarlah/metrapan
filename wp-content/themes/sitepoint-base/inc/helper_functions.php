@@ -51,11 +51,32 @@ function getCategoryName( $catSlug ) {
 }
 
 /**
- * Get get the number of associated posts
+ * Get the number of associated posts
  *
  * @param Category slug
  * @return INT number of associated posts
  */
 function getNumbAssociatedposts( $catSlug ) {
 	return get_term_by('slug',  $catSlug, 'kategorijeproduktov')->count;
+}
+
+/**
+ * Get the number of products by specific category
+ *
+ * @param Post type
+ * @param Category slug
+ * @return False if more than one post and post if one post
+ */
+function getNumberOfProductsByCat( $postType, $catSlug ) {
+	$posts = get_posts([
+		'post_type' => $postType,
+        'posts_per_page' => 500,
+    	'post_status' => 'any',
+        'post_parent' => null,
+        'kategorijeproduktov' => $catSlug
+	]);
+
+	if ( getNumbAssociatedposts( $catSlug ) > 1 ) return false;
+
+	return $posts[0];
 }

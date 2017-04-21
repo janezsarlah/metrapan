@@ -65,9 +65,10 @@ get_header(); ?>
 							<?php endif; ?>
 							
 							<?php if ( $barve ) : ?>
-
-								<ul>
-		                            <li><div class="barve-blacktext barve-container">Standard</div></li>
+						
+		                        <div class="colors-title">Standardne barve</div>
+	                            
+								<ul class="flex">
 									<?php
 										foreach ($barve as $barva){
 										    $code = get_field("barva", $barva->ID);
@@ -82,8 +83,8 @@ get_header(); ?>
 							<?php endif; ?>
 
 							<?php if ( $barvep ) : ?>
-								<ul>
-		                            <li><div class="barve-blacktext barve-container">Standard plus</div></li>
+								<div class="colors-title">Standard plus</div>
+								<ul class="flex"> 
 									<?php
 										foreach ($barvep as $barvap){
 			                                $codep = get_field("barva", $barvap->ID);
@@ -95,7 +96,7 @@ get_header(); ?>
 								</ul> 
 							<?php endif; ?>
 
-							<?php if ( $barve && $barvep ) : ?>
+							<?php if ( $barve ) : ?>
 								<div class="singleproduct-text barve-x">*Ostale barve po naročilu</div>
 							<?php endif; ?>
 						</div>
@@ -105,7 +106,7 @@ get_header(); ?>
 			
 					<div class="singleproduct-right">
 						<div class="singleproduct-title main"><?php echo $title; ?></div>
-						<div class="singleproduct-text"><?php echo $text; ?></div>
+						<div class="singleproduct-text"><?php //echo $text; ?></div>
 						<div class="singleproduct-opis"><?php echo $opis; ?></div>
 						<hr class="singleproduct-seperator">
 						<div class="singleproduct-title sub">TEHNIČNI PODATKI:</div>
@@ -135,7 +136,7 @@ get_header(); ?>
 								<?php foreach ( $dodatki as $dodatek ) : ?>
 									<?php			
 										$dodatektitle = get_the_title($dodatek->ID);
-										$dodatektext = get_post_field("post_content", $icon->ID);
+										$dodatektext = get_post_field("post_content", $dodatek->ID);
 										$dodateklink = get_post_permalink($dodatek->ID);
 										$dodatekimg = wp_get_attachment_image_src(get_post_thumbnail_id( $dodatek->ID),"large" )[0];
 									?>
@@ -143,7 +144,7 @@ get_header(); ?>
 									<div class="dodatki-item">
 										<img class="dodatki-img" src="<?php echo $dodatekimg; ?>">
 										<div class="dodatki-title"><a href="<?php echo $dodateklink; ?>"><?php echo $dodatektitle; ?></a></div>
-										<div class="dodatki-text"><?php echo $dodatektext; ?></div>
+										<div class="dodatki-text"><?php //echo $dodatektext; ?></div>
 									</div>
 								<?php endforeach; ?>
 							</div>

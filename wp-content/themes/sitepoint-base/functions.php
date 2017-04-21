@@ -1016,8 +1016,8 @@ background-position: 0 0;
 ';
 }
 
-add_action( 'login_enqueue_scripts', 'my_login_logo' );
-add_action('wp_before_admin_bar_render', 'wpb_custom_logo');
+//add_action( 'login_enqueue_scripts', 'my_login_logo' );
+//add_action('wp_before_admin_bar_render', 'wpb_custom_logo');
 
 
 
@@ -1028,7 +1028,7 @@ pll_register_string( "badge_new", "novo");
 pll_register_string( "btn_signup", "prijava");
 pll_register_string( "contact", "Kontakt");
 //----------------------------------------------------------------------------
-add_action( 'init', 'my_script_enqueuer' );
+//add_action( 'init', 'my_script_enqueuer' );
 
 function my_script_enqueuer() {
    wp_register_script( "products", WP_PLUGIN_URL.'/ajax-products/products.js', array('jquery') );
@@ -1039,6 +1039,7 @@ function my_script_enqueuer() {
 
 }
 
+
 /**
  * This function modifies the main WordPress query to include an array of 
  * post types instead of the default 'post' post type.
@@ -1048,14 +1049,13 @@ function my_script_enqueuer() {
  */
 function av_cpt_search( $query ) {
     if ( $query->is_search ) {
-		$query->set( 'post_type', array( 'post', 'page', 'post_type_products' ) );
+		$query->set( 'post_type', array( 'post', 'page', 'products' ) );
     }
     
     return $query;
 }
 
-add_filter( 'pre_get_posts', 'av_cpt_search' );
-
+//add_filter( 'pre_get_posts', 'av_cpt_search' );
 
 /*
 * Include helper functions

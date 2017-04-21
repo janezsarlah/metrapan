@@ -24,11 +24,21 @@ if( !isset( $field['config']['decimal_separator'] ) ){
 $thousand_separator = $field['config']['thousand_separator'];
 $decimal_separator = $field['config']['decimal_separator'];
 
+$attrs = array(
+	'type' => 'hidden',
+	'name' => $field_name,
+	'value' => 0,
+	'data-field' => $field_base_id,
+);
+$attr_string =  caldera_forms_field_attributes( $attrs, $field, $form );
+
+
 ?><?php echo $wrapper_before; ?>
 	<?php echo $field_label; ?>
 	<?php echo $field_before; ?>
-		<<?php echo $elementType . $field_structure['aria']; ?> class="<?php echo $field['config']['classes']; ?>"><?php echo $field['config']['before']; ?><span id="<?php echo esc_attr( $field_id ); ?>"><?php echo $field_value; ?></span><?php echo $field['config']['after']; ?></<?php echo $elementType; ?>>
-		<input type="hidden" name="<?php echo esc_attr( $field_name ); ?>" value="0" data-field="<?php echo esc_attr( $field_base_id ); ?>" >
+		<<?php echo $elementType . $field_structure['aria']; ?> class="<?php echo $field['config']['classes']; ?>"><?php echo $field['config']['before']; ?>
+			<span id="<?php echo esc_attr( $field_id ); ?>"><?php echo $field_value; ?></span><?php echo $field['config']['after']; ?></<?php echo $elementType; ?>>
+				<input type="hidden" <?php echo $attr_string; ?>" >
 		<?php echo $field_caption; ?>
 	<?php echo $field_after; ?>
 <?php echo $wrapper_after; ?>
@@ -52,33 +62,21 @@ if(!empty($field['config']['manual'])){
 			}
 		}
 	}
-	// fix POW
-	$formula = str_replace('pow(', 'Math.pow(', $formula);
-	$formula = str_replace('abs(', 'Math.abs(', $formula);
-	$formula = str_replace('acos(', 'Math.acos(', $formula);
-	$formula = str_replace('asin(', 'Math.asin(', $formula);
-	$formula = str_replace('atan(', 'Math.atan(', $formula);
-	$formula = str_replace('atan2(', 'Math.atan2(', $formula);
-	$formula = str_replace('ceil(', 'Math.ceil(', $formula);
-	$formula = str_replace('cos(', 'Math.cos(', $formula);
-	$formula = str_replace('exp(', 'Math.exp(', $formula);
-	$formula = str_replace('floor(', 'Math.floor(', $formula);
-	$formula = str_replace('log(', 'Math.log(', $formula);
-	$formula = str_replace('max(', 'Math.max(', $formula);
-	$formula = str_replace('min(', 'Math.min(', $formula);
-	$formula = str_replace('random(', 'Math.random(', $formula);
-	$formula = str_replace('round(', 'Math.round(', $formula);
-	$formula = str_replace('sin(', 'Math.sin(', $formula);
-	$formula = str_replace('sqrt(', 'Math.sqrt(', $formula);
-	$formula = str_replace('tan(', 'Math.tan(', $formula);
+
+	$functions = Caldera_Forms_Field_Util::get_math_functions( $form );
+	$formula = str_replace(  ' ', '', $formula );
+	foreach ( $functions as $function ){
+		$formula = preg_replace("/\b$function\(\b/", "Math.$function(", $formula);
+	}
+
 }
+
 $formula = str_replace("\r",'', str_replace("\n",'', str_replace(' ','', trim( Caldera_Forms::do_magic_tags( $formula ) ) ) ) );
 $binds = array();
 $binds_wrap = array();
 $binds_vars = array();
 foreach($form['fields'] as $fid=>$cfg){
 	if(false !== strpos($formula, $fid)){
-		//dump($cfg,0);
 		$formula = str_replace($fid, $fid, $formula);
 		$binds_vars[] = $fid." = parseFloat( jQuery('[data-field=\"".$fid."\"]').is(':checkbox') ? checked_total_" . $field_base_id. "(jQuery('[data-field=\"".$fid."\"]:checked')) : jQuery('[data-field=\"".$fid."\"]').is(':radio') ? jQuery('[data-field=\"".$fid."\"]:checked').val() : jQuery('[data-field=\"".$fid."\"]').val() ) || 0 ";
 
@@ -144,7 +142,7 @@ if(!empty($binds)){
 		});
 		jQuery( document ).on('cf.remove cf.add', function( e ){
 			docalc_<?php echo $field_base_id; ?>();
-		})
+		});
 		docalc_<?php echo $field_base_id; ?>();
 	});
 	
@@ -152,10 +150,6 @@ if(!empty($binds)){
 <?php 
 
 	$script_template = ob_get_clean();
-	if( ! empty( $form[ 'grid_object' ] ) && is_object( $form[ 'grid_object' ] ) ){
-		$form[ 'grid_object' ]->append( $script_template, $field[ 'grid_location' ] );
-	}else{
-		echo $script_template;
-	}
+	Caldera_Forms_Render_Util::add_inline_data( $script_template, $form );
+}
 
-} ?>

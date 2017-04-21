@@ -58,7 +58,13 @@
                 <?php if ( count( $productsCategoryes ) > 0 ) : ?>
                     <ul class="podkategorija <?php echo count( $productsCategoryes ) > 5 ? "flex" : ""; ?>">
                         <?php foreach ( $productsCategoryes as $cat ) : ?>
-                            <li data-catslug="<?php echo $cat ?>" class="buttoncommon podkategorija-line"><?php echo getCategoryName( $cat ); ?></li>
+                            <?php $singlePost = getNumberOfProductsByCat( 'products2', $cat ); ?>
+
+                            <?php if ( $singlePost ) : ?>
+                                <li class="buttoncommon podkategorija-line"><a href="<?php echo get_permalink( $singlePost->ID ); ?>"><?php echo getCategoryName( $cat ); ?></a></li>
+                            <?php else : ?>
+                                <li data-catslug="<?php echo $cat ?>" class="buttoncommon podkategorija-line"><?php echo getCategoryName( $cat ); ?></li>
+                            <?php endif; ?>
                         <?php endforeach; ?>
                     </ul>
                 <?php endif; ?>
@@ -186,12 +192,15 @@
             var _ = $(this);
             var cat_slug = _.data('catslug');
             var post_type = _.parents().eq(1).data('posttype');
-            var productTitle = _.parents().eq(1).find('.title').text();
+            var productTitle = _.text();
+
             categoryes.find('.podkategorija li').removeClass('active');
             categoryes.find('.produkt-container ').removeClass('active');
             _.parents().eq(1).addClass('active');
             _.addClass('active');
 
+            if ( cat_slug === undefined ) return;
+             
             $('.dinamic-title span').html(productTitle);
 
             testAjax(post_type, cat_slug);

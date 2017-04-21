@@ -256,7 +256,15 @@ class Caldera_Forms_Forms {
 			$id = $data[ 'ID' ]   = uniqid( 'CF' );
 		}
 
-		return self::save_form( $data );
+
+		$data[ 'ID' ] = trim( $id );
+
+		$new_form = self::save_form( $data );
+		if( is_array( $new_form ) && isset( $new_form[ 'ID' ] ) ){
+			$new_form = $new_form[ 'ID' ];
+		}
+
+		return $new_form;
 
 	}
 
@@ -450,11 +458,18 @@ class Caldera_Forms_Forms {
 			}
 		}
 
-		$id = uniqid('CF');
-		$newform = array(
+		$forms = self::get_forms();
+		if( ! isset( $newform[ 'ID' ] ) || ( ! isset( $newform[ 'ID' ] ) && array_key_exists( $newform[ 'ID' ], $forms ) ) ) {
+			$id = uniqid('CF');
+		}else{
+			$id = $newform[ 'ID' ];
+		}
+
+		$id = trim( $id );
+		$defaults = array(
 			"ID" 			=> $id,
-			"name" 			=> $newform['name'],
-			"description" 	=> $newform['description'],
+			"name" 			=> '',
+			"description" 	=> '',
 			"success"		=>	__('Form has been successfully submitted. Thank you.', 'caldera-forms'),
 			"form_ajax"		=> 1,
 			"hide_form"		=> 1,
@@ -462,6 +477,9 @@ class Caldera_Forms_Forms {
 			"db_support"    => 1,
 			'mailer'		=>	array( 'on_insert' => 1 )
 		);
+
+		$newform = wp_parse_args( $newform, $defaults );
+
 		// is template?
 		if( !empty( $form_template ) && is_array( $form_template ) ){
 			$newform = array_merge( $form_template, $newform );
@@ -669,6 +687,32 @@ class Caldera_Forms_Forms {
 		}
 
 
+	}
+
+	/**
+	 * Get entry list fields of a form
+	 *
+	 * @since 1.5.0
+	 *
+	 * @param array $form Form config
+	 * @param bool $configs Optional. If true, field config arrays are returned. If false, the default, field IDs are returned
+	 *
+	 * @return array
+	 */
+	public static function entry_list_fields( array  $form, $configs = false ){
+		$fields = self::get_fields( $form );
+		$entry_list_fields = array();
+		foreach ( $fields as $field_id => $field ){
+			if( ! empty( $field[ 'entry_list'])){
+				if ( $configs  ) {
+					$entry_list_fields[ $field_id ] = $field;
+				}else{
+					$entry_list_fields[] = $field_id;
+				}
+			}
+		}
+
+		return $entry_list_fields;
 	}
 
 }

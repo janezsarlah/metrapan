@@ -1,6 +1,7 @@
 jQuery(document).ready(function($) {
 	var ewww_error_counter = 30;
-	if (!ewww_vars.attachments) {
+	//if (!ewww_vars.attachments) {
+	if (!ewww_vars.scan_fail) {
 		$('#ewww-webp-rewrite').submit(function() {
 			var ewww_webp_rewrite_action = 'ewww_webp_rewrite';
 			var ewww_webp_rewrite_data = {
@@ -183,9 +184,9 @@ jQuery(document).ready(function($) {
 			}
 			if ( ! is_json ) {
 				$('#ewww-scanning').html('<span style="color: red"><b>' + ewww_vars.invalid_response + '</b></span>');
+				console.log( response );
 				return false;
 			}	
-			//ewww_response = $.parseJSON(response);
 			ewww_init_data = {
 			        action: ewww_init_action,
 				ewww_wpnonce: ewww_vars._wpnonce,
@@ -195,10 +196,17 @@ jQuery(document).ready(function($) {
 			} else if ( ewww_response.remaining ) {
 				$('.ewww-aux-table').hide();
 				$('#ewww-show-table').hide();
-				//$('.ewww-bulk-form').hide();
-				//$('.ewww-bulk-info').hide();
-				//$('h2').hide();	
+				//if ( ! ewww_response.notice ) {
+				//	ewww_response.notice = '';
+				//}
 				$('#ewww-scanning').html( ewww_response.remaining );
+				if ( ewww_response.notice ) {
+					$('#ewww-scanning').append( '<br>' + ewww_response.notice );
+				}
+				if ( ewww_response.bad_attachment ) {
+		                	$('#ewww-scanning').append( '<br>' + ewww_vars.bad_attachment + ' ' + ewww_response.bad_attachment );
+				}
+				ewww_scan_failures = 0;
 				ewwwStartScan();
 			} else if ( ewww_response.ready ) {
 				ewww_attachments = ewww_response.ready;
@@ -209,8 +217,7 @@ jQuery(document).ready(function($) {
 					//$('#ewww-aux-start').show();
 					//$('#ewww-aux-again').show();
 					//$('#ewww-aux-first').hide();
-				}
-				else {
+				} else {
 					$('#ewww-scanning').html(ewww_response.message);
 					$('#ewww-bulk-start').show();
 //					ewwwStartOpt();
@@ -377,11 +384,14 @@ jQuery(document).ready(function($) {
 			}
 			if ( ! is_json ) {
 				$('#ewww-bulk-loading').html('<p style="color: red"><b>' + ewww_vars.invalid_response + '</b></p>');
+				console.log( response );
 				return false;
 			}	
-			//var ewww_init_response = $.parseJSON(response);
 			if ( ewww_init_response.error ) {
 				$('#ewww-bulk-loading').html('<p style="color: red"><b>' + ewww_init_response.error + '</b></p>');
+				if ( ewww_init_response.data ) {
+					console.log( ewww_init_response.data );
+				}
 			} else {
 				if ( ewww_init_response.start_time ) {
 					ewww_bulk_start_time = ewww_init_response.start_time;
@@ -412,6 +422,7 @@ jQuery(document).ready(function($) {
 			}
 			if ( ! is_json ) {
 				$('#ewww-bulk-loading').html('<p style="color: red"><b>' + ewww_vars.invalid_response + '</b></p>');
+				console.log( response );
 				return false;
 			}	
 			ewww_i += ewww_response.completed;
@@ -560,6 +571,38 @@ function ewwwRemoveImage(imageID) {
 			jQuery('.displaying-num').text(ewww_vars.count_string);
 		} else {
 			alert(ewww_vars.remove_failed);
+		}
+	});
+}
+function ewwwRestoreImage(imageID) {
+	var ewww_image_restore = {
+		action: 'ewww_manual_cloud_restore_single',
+		ewww_wpnonce: ewww_vars._wpnonce,
+		ewww_image_id: imageID,
+	};
+	var original_html = jQuery('#ewww-image-' + imageID + ' td:last-child').html();
+	jQuery('#ewww-image-' + imageID + ' td:last-child').html(ewww_vars.restoring);
+	jQuery.post(ajaxurl, ewww_image_restore, function(response) {
+		var is_json = true;
+		try {
+			var ewww_response = jQuery.parseJSON(response);
+		} catch (err) {
+			is_json = false;
+		}
+		if ( ! is_json ) {
+			alert( ewww_vars.invalid_response );
+			console.log( response );
+			return false;
+		}	
+		if ( ewww_response.success == '1') {
+//			jQuery('#ewww-image-' + imageID + ' td:last-child .restoreimage').remove();
+//			jQuery('#ewww-image-' + imageID + ' td:last-child .restoring').remove();
+			jQuery('#ewww-image-' + imageID + ' td:last-child').html(ewww_vars.original_restored);
+			return false;
+		} else if (ewww_response.error) {
+			jQuery('#ewww-image-' + imageID + ' td:last-child').html(original_html);
+			alert(ewww_response.error);
+			return false;
 		}
 	});
 }

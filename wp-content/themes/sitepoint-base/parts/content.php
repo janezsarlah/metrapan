@@ -2,6 +2,7 @@
 			
 //echo json_encode(get_field("content"));
 $content = get_field("content", get_the_ID());
+
 //echo json_encode($content);
 if(count($content)>0){
 	foreach ($content as $key => $value) {
@@ -37,6 +38,7 @@ if(count($content)>0){
             case "aktualnosti_list":
                 include( get_stylesheet_directory() . '/parts/aktualnostilist.php');
                 break;
+      
 		}
 	}
 }

@@ -315,6 +315,11 @@ function dslc_display_composer() {
 				<div class="dslca-module-edit-field-ttip-inner"></div>
 			</div>
 
+			<div class="dslca-modules-section-edit-field-ttip">
+				<span class="dslca-modules-section-edit-field-ttip-close"><span class="dslc-icon dslc-icon-remove"></span></span>
+				<div class="dslca-modules-section-edit-field-ttip-inner"></div>
+			</div>
+
 			<div class="dslca-module-edit-field-icon-switch-sets">
 				<?php
 					global $dslc_var_icons;
@@ -402,8 +407,11 @@ function dslc_display_composer() {
 		<?php
 
 		// Output editor messages.
-		$editor_messages = new Editor_Messages();
-		echo $editor_messages->dslc_print_editor_messages();
+		$editor_messages = new LC_Editor_Messages();
+
+		if ( ! $editor_messages->get_hidden() ) {
+			echo $editor_messages->print_messages();
+		}
 
 	endif;
 
@@ -1312,8 +1320,16 @@ function dslc_modules_section_front( $atts, $content = null, $version = 1 ) {
 		}
 	}
 
-	//data-section-id='. $atts['section_instance_id'] . '
-	$output = '
+	$output = '';
+
+	if ( ! $dslc_active ) {
+
+		// Before Section.
+		$before_section_content = '';
+		$output .= apply_filters( 'dslc_before_section', $before_section_content, $atts );
+	}
+
+	$output .= '
 		<div ' . $section_id_output . ' class="dslc-modules-section ' . $a_container_class . $parallax_class . $section_class . $extra_classes . '" style="' . dslc_row_get_style( $atts ) . '" data-section-id="' . $atts['section_instance_id'] . '">
 
 				'.$bg_video . '
@@ -1343,6 +1359,13 @@ function dslc_modules_section_front( $atts, $content = null, $version = 1 ) {
 		}
 
 	$output .= '</div>';
+
+	if ( ! $dslc_active ) {
+
+		// After Section.
+		$after_section_content = '';
+		$output .= apply_filters( 'dslc_after_section', $after_section_content, $atts );
+	}
 
 	// Return the output
 	return $output;
