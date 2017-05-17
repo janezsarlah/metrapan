@@ -1,11 +1,15 @@
+
+
 .produkticons
 {
-    margin-top: 40px;
+    padding: 0;
+    margin-top: 80px;
     margin-bottom: -50px;
     ul{
             display: -ms-flexbox;
             display: flex;
             justify-content: center;
+            flex-wrap: wrap;
 			list-style: none;
 			margin:0;
 			padding: 0;
@@ -16,7 +20,6 @@
 		}
 		ul li{
 			margin: 0;
-			width: 14.28%;
 			font-size: 12px;
 		    padding: 5px;
 	    	box-sizing: border-box;
@@ -34,25 +37,78 @@
         width: 130px;
         height: 130px;
         margin: auto;
-        background-color: #E9E9E9;
         text-align: center;
         cursor: pointer;
+        background-color: #ecebeb;
     }
+    .produkticons-iconcontainer.active { background-color: #cac8c8; } 
     .produkticons-iconcontainer:hover
     {
-        background-color:#C1C1C1;
+        background-color: #cac8c8;
+
+
     }
     .produkticons-icon{
         width: 50px;
         height: 50px;
-        margin-bottom: 20px;
+        margin-bottom: 15px;
         margin-top: 20px;
     }
     .produkticons-title{
-	    font-size: 12px;
+	    font-size: 10px;
 	    text-transform: uppercase;
 	    margin-bottom: 5px;
+        max-width: 75px;
+        margin: 0 auto;
     }
+}
+
+.iconsMetrapan {
+    background-image: url('../../img/spritesheet.png');
+    background-repeat: no-repeat;
+    display: block;
+}
+
+.icons-brez-izolacije {
+    width: 150px;
+    height: 150px;
+    background-position: -5px -5px;
+}
+
+.icons-filc {
+    width: 150px;
+    height: 150px;
+    background-position: -165px -5px;
+}
+
+.icons-kmetijski-objekti {
+    width: 150px;
+    height: 150px;
+    background-position: -325px -5px;
+}
+
+.icons-mineralan-volna {
+    width: 150px;
+    height: 150px;
+    background-position: -485px -5px;
+}
+
+.icons-poliuretanska-pena-drugi-nivo {
+    width: 150px;
+    height: 150px;
+    background-position: -645px -5px;
+}
+
+.icons-stenski-paneli {
+    width: 150px;
+    height: 150px;
+    background-position: -805px -5px;
+}
+
+.icons-stresni-paneli-drugi-nivo {
+    width: 150px;
+    height: 150px;
+    background-position: -965px -5px;
 }
 
 
@@ -62,11 +118,17 @@
     }
 }
 @media (max-width: 900px){
+    .produkticons ul {
+        justify-content: center;        
+    }
 	.produkticons ul li{
         width: 25% !important;
     }
 }
 @media (max-width: 450px){
+    .produkticons {
+        margin-top: 40px;
+    }
 	.produkticons ul li{
         width: 50% !important;
         display: inline-block;

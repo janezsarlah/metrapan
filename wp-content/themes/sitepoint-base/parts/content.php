@@ -4,7 +4,7 @@
 $content = get_field("content", get_the_ID());
 
 //echo json_encode($content);
-if(count($content)>0){
+if(count($content)>0 && $content != null){
 	foreach ($content as $key => $value) {
 		
 		switch($value["acf_fc_layout"]){
@@ -38,7 +38,15 @@ if(count($content)>0){
             case "aktualnosti_list":
                 include( get_stylesheet_directory() . '/parts/aktualnostilist.php');
                 break;
-      
+            case "content-contact":
+                include( get_stylesheet_directory() . '/parts/content-contact.php');
+                break;
+            case "timeline_content":
+                include( get_stylesheet_directory() . '/parts/timeline-content.php');
+                break;
+            case "newslblock":
+                include( get_stylesheet_directory() . '/parts/newsbox.php');
+                break;
 		}
 	}
 }

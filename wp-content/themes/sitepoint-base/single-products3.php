@@ -38,13 +38,13 @@ get_header(); ?>
                          
 						<div class="singleproduct-icons">
                         
+                    	<?php if ( count($icons) > 0 && $icons != null ) : ?>
 							<?php foreach ($icons as $icon) : ?>
 								<?php
 									$icontitle = get_the_title($icon->ID);
 									$icontext = get_post_field("post_content", $icon->ID);
 									$iconsrc = get_field("icon", $icon->ID);
 								?>
-				
 								<div class="singleproduct-iconcontainer">
 									<div class="singleproduct-iconcontainer-table">
 										<img class="singleproduct-icon" src="<?php echo $iconsrc["url"]; ?>">
@@ -56,6 +56,7 @@ get_header(); ?>
 								</div>
 								
 							<?php endforeach; ?>
+						<?php endif; ?>
                   
 						</div>
 
@@ -97,7 +98,30 @@ get_header(); ?>
 							<?php endif; ?>
 
 							<?php if ( $barve ) : ?>
-								<div class="singleproduct-text barve-x">*Ostale barve po naročilu</div>
+								<div class="singleproduct-text barve-x">*Ostale RAL barve prosimo preverite preko spodnjega <span class="hidden-form-trigger">obrazca</span>!</div>
+								<div class="hidden-form">
+									<?php echo do_shortcode( '[caldera_form id="CF591c2324303fc"]' ); ?>
+								</div>
+
+								<script type="text/javascript">
+									jQuery(document).ready(function() {
+
+										//jQuery('.color_dropdown .form-control option').data('class', 'avatar');
+										//jQuery('.color_dropdown .form-control option').data('style', "background-image: url(&apos;http://www.gravatar.com/avatar/b3e04a46e85ad3e165d66f5d927eb609?d=monsterid&amp;r=g&amp;s=16&apos;);");
+
+
+										jQuery('.hidden-form-trigger').on('click', function() {
+											jQuery('.hidden-form').slideToggle();
+											jQuery('.product_name').val(jQuery('.singleproduct-right .singleproduct-title.main').text());
+
+										});
+
+										jQuery('.color-pick').on('click', function() {
+											jQuery('.color-image-con').slideToggle('slow');
+										});
+
+									});
+								</script>
 							<?php endif; ?>
 						</div>
                

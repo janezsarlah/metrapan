@@ -1,0 +1,131 @@
+.tabs {
+  margin-bottom: 40px;
+}
+ul.tabs-titles {
+  margin: 0px;
+  padding: 0px;
+  list-style: none;
+}
+ul.tabs-titles li {
+  background: none;
+  color: #222;
+  display: inline-block;
+  padding: 7px 15px;
+  cursor: pointer;
+  font-size: 12px;
+  background: #FFC829;
+  margin-right: 15px;
+  -webkit-transition: all 0.2s ease-in-out;
+  -moz-transition: all 0.2s ease-in-out;
+  -ms-transition: all 0.2s ease-in-out;
+  -o-transition: all 0.2s ease-in-out;
+  transition: all 0.2s ease-in-out;
+}
+ul.tabs-titles li:hover {
+  background-color: #fff;
+}
+ul.tabs-titles li.current {
+  background-color: #fff;
+  color: #222;
+}
+.tab-content {
+  display: none;
+  padding: 40px 60px;
+  box-sizing: border-box;
+}
+.tab-content .tab-col {
+  float: left;
+}
+.tab-content .tab-col.left {
+  width: 60%;
+}
+.tab-content .tab-col.right {
+  width: 40%;
+  padding: 0 80px;
+  box-sizing: border-box;
+}
+.tab-content .tab-col.right img {
+  width: 100%;
+}
+.tab-content .tab-title {
+  font-size: 20px;
+  font-weight: bold;
+  font-size: 30px;
+  color: #6b6b6b;
+  margin-bottom: 20px;
+}
+.tab-content.current {
+  display: inherit;
+}
+.tab-content .col {
+  width: 50%;
+  float: left;
+  margin-bottom: 20px;
+}
+.tab-content hr {
+  margin: 0 0 25px 0;
+  width: 100%;
+}
+.tab-content a {
+  color: #db262f;
+}
+.sector-contact-list {
+  display: -ms-flex;
+  display: flex;
+  flex-wrap: wrap;
+}
+.sector-contact-list .sector-contact {
+  padding-right: 40px;
+  width: 33.33333333%;
+}
+.sector-title {
+  font-size: 20px;
+  font-weight: 600;
+  margin-bottom: 10px;
+  color: #6b6b6b;
+}
+#map1,
+#map2,
+#map3,
+#map4,
+#map5 {
+  height: 220px;
+}
+@media (max-width: 1090px) {
+  .tab-content .tab-col.left,
+  .tab-content .tab-col.right {
+    width: 50%;
+  }
+  .tab-content .tab-col.right {
+    padding: 0 20px;
+  }
+  .sector-contact-list .sector-contact {
+    width: 50%;
+  }
+}
+@media (max-width: 860px) {
+  .tab-content .tab-col.left,
+  .tab-content .tab-col.right {
+    width: 100%;
+  }
+  .tab-content .tab-col.right {
+    padding: 0;
+  }
+  .sector-contact-list .sector-contact {
+    width: 33.33333333%;
+  }
+}
+@media (max-width: 680px) {
+  .sector-contact-list .sector-contact {
+    width: 50%;
+  }
+  .tab-content {
+    padding: 10px 0;
+  }
+}
+@media (max-width: 480px) {
+  .sector-contact-list .sector-contact {
+    width: 100%;
+    padding-right: 0;
+  }
+}

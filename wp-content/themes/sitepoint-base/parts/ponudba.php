@@ -15,7 +15,7 @@ $embed = $value["html"];
             <div class="ponudba-file">Prelistaj katalog<div class="showMore button1 aktualnost-btn ponudba-btn" id="showkat"><a href="#">TUKAJ</a></div></div>
             <img src="<?php echo $url["url"]; ?>"></li>
         <li class="ponudba-right"><img class="ponudba-icon" src="<?php echo $icon2["url"]; ?>">
-            <div class="ponudba-title">Cenik</div>
+            <div class="ponudba-title">Potrebujete ponudbo?</div>
             <div class="ponudba-text"><?php echo $value["text"]; ?></div>
             <div class="showMore button1 aktualnost-btn ponudba-btn"><a href="http://meltal.oss-dev.av-studio.si/metrapan/si/pisite-nam/">Kontakt</a></div></li>
     </ul>

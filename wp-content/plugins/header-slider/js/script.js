@@ -3,16 +3,25 @@
 jQuery(function($){
 
   //$(".header-slider li").height($(window).height());
-  $(".header-slider li").height($(window).height()-280);
+  if (window.innerHeight > 650) {
+
+    $(".header-slider li").height($(window).height()-280);
+  } else {
+    $(".header-slider li").height($(window).height()-200);
+  }
 
   $(window).resize(function(){
-    $(".header-slider li").height($(window).height()-280);
+    if (window.innerHeight > 650) {
+      $(".header-slider li").height($(window).height()-280);
+    } else {
+      $(".header-slider li").height($(window).height()-200);
+    }
   });
   
   $('.header-slider').bxSlider({
     slideMargin:0,
-    nextText: '<i class="fa fa-chevron-right" aria-hidden="true"></i>',
-    prevText: '<i class="fa fa-chevron-left" aria-hidden="true"></i>',
+    nextText: '<div class="con controleright"></div>',
+    prevText: '<div class="con controleleft"></div>',
     pager: false,
     //slideWidth: $(window).width(),
     responsive: true,

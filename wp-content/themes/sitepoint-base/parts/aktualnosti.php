@@ -21,7 +21,7 @@ $col = 0;
                 $datum = get_the_date("d.m.Y", $aktualnost->ID);
 			?>
 			
-			<li>
+			<li class="topicality-list-item">
                     <div class="aktualnost-datum"><?php echo $datum; ?></div>
 					<div class="aktualnost-title"><?php echo $title; ?></div>
 					

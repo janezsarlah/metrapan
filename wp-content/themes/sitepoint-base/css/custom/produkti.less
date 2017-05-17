@@ -15,7 +15,7 @@
     background-repeat: no-repeat;
     
     .produkt-container{
-        background-color: #929497;
+        background-color: rgba(0,0,0, 0.4);
         font-size: 16px;
         height: 100px;
         //height: 98px;
@@ -40,31 +40,87 @@
     }
     .produkt-container:hover
     {
-        background-color: rgba(0,0,0, 0.6);
+        background-color: rgba(0,0,0, 0.8);
         color: @yellow;
+        .plusicon:before{ 
+            -webkit-transform: rotate(90deg); 
+            -moz-transform: rotate(90deg); 
+            -ms-transform: rotate(90deg); 
+            -o-transform: rotate(90deg); 
+            transform: rotate(90deg); 
+        }
+        .plusicon:after{ 
+            -webkit-transform: rotate(180deg); 
+            -moz-transform: rotate(180deg); 
+            -ms-transform: rotate(180deg); 
+            -o-transform: rotate(180deg); 
+            transform: rotate(180deg);  
+        }
     }
     .produkt-container1:hover
     { 
-        background-color: rgba(0,0,0, 0.6);
+        background-color: rgba(0,0,0, 0.8);
         color: @yellow;
     }
     .produkt-containerafter:hover
     {
-        background-color: rgba(0,0,0, 0.6);
+        background-color: rgba(0,0,0, 0.8);
         color: @yellow;
     }
     .produkt-active{
-        background-color: rgba(0,0,0, 0.6) !important;
+        background-color: rgba(0,0,0, 0.8) !important;
         color: @yellow !important;
+
     }
 
+    .pluscontainer {
+        display: table-cell;
+        vertical-align: middle;
+    }
+    
+
+    .plusicon {
+            position: relative;
+        width: 20px;
+        height: 20px;
+        &:before,
+        &:after{
+        content: "";
+        position: absolute;
+        background-color: @yellow;
+        transition: transform 0.25s ease-out;
+        }
+        &:before{
+        top: 0;
+        left: 50%;
+        width: 2px;
+        height: 100%;
+        margin-left: -1px;
+        }
+
+        /* horizontal line */
+        &:after{
+        top: 50%;
+        left: 0;
+        width: 100%;
+        height: 2px;
+        margin-top: -1px;
+        }
+        
+        &:hover{
+          cursor: pointer;
+        
+        
+        }
+        }
+    
     .produkt-detail{
         height: 200px;
         position: absolute;
         margin-left: 20%;
       
-        right: 0px;
-        background-color: rgba(0,0,0, 0.6);
+        right: 3px;
+        background-color: rgba(0,0,0, 0.4);
         min-height: 30%;
         bottom: 0px;
         text-align: left;
@@ -221,11 +277,13 @@ ul.podkategorija {
     display: inline-block;
     width: 100%;
     max-width: 70%;
+    padding: 20px;
+    box-sizing: border-box;
 }
 
 
 .produkt-left-container .produkt-container.active {
-    background-color: rgba(0,0,0, 0.6);
+    background-color: rgba(0,0,0, 0.75);
     color:white;
     font-weight: 600;
 }
@@ -264,7 +322,7 @@ ul.podkategorija {
     height: 210px;
     //height: 98px;
 
-    background-color: rgba(0,0,0, 0.6);
+    background-color: rgba(0,0,0, 0.75);
     color:white;
     padding-left: 20px;
     font-weight: 600;
@@ -273,7 +331,7 @@ ul.podkategorija {
 }
 
 .produkt-left-container .produkt-container.active-small {
-    background-color: rgba(0,0,0, 0.6);
+    background-color: rgba(0,0,0, 0.75);
     color:white;
     padding-left: 20px;
     font-weight: 600;

@@ -372,6 +372,8 @@ if ( ! function_exists( 'sitepointbase_scripts_styles' ) ) {
 		}
 
 		//vanilla javascript to create the responsive menu.
+        wp_enqueue_style( 'animate_css', trailingslashit( get_template_directory_uri() ) . 'css/animate.css' , array(), '1.0.0', 'all' );
+        wp_enqueue_style( 'jquery-ui_css', trailingslashit( get_template_directory_uri() ) . 'css/jquery-ui.min.css' , array(), '1.0.0', 'all' );
         wp_enqueue_style( 'kontakti_less', trailingslashit( get_template_directory_uri() ) . 'css/custom/kontakti.less' , array( 'unsemanticgrid' ), '1.0.0', 'all' );
         wp_enqueue_style( 'aktualnostilist_less', trailingslashit( get_template_directory_uri() ) . 'css/custom/aktualnostilist.less' , array( 'unsemanticgrid' ), '1.0.0', 'all' );
 		wp_enqueue_style( 'singleproduct_less', trailingslashit( get_template_directory_uri() ) . 'css/custom/singleproduct.less' , array( 'unsemanticgrid' ), '1.0.0', 'all' );
@@ -379,6 +381,7 @@ if ( ! function_exists( 'sitepointbase_scripts_styles' ) ) {
         wp_enqueue_style( 'produkticons_less', trailingslashit( get_template_directory_uri() ) . 'css/custom/produkticons.less' , array( 'unsemanticgrid' ), '1.0.0', 'all' );
         wp_enqueue_style( 'produkti_less', trailingslashit( get_template_directory_uri() ) . 'css/custom/produkti.less' , array( 'unsemanticgrid' ), '1.0.0', 'all' );
 		wp_enqueue_script( 'sitepoint-base-vendors', trailingslashit( get_template_directory_uri() ) . 'js/vendors.min.js', array('jquery'), '1.0.0', false );
+		wp_enqueue_script( 'jquery-ui_js', trailingslashit( get_template_directory_uri() ) . 'js/jquery-ui.min.js', array('jquery'), '1.0.0', false );
 		wp_enqueue_script( 'theme_main', trailingslashit( get_template_directory_uri() ) . 'js/custom/main.js', array('jquery'), '1.0.0', false );
 		wp_enqueue_style( 'prednosti_less', trailingslashit( get_template_directory_uri() ) . 'css/custom/prednosti.less' , array( 'unsemanticgrid' ), '1.0.0', 'all' );
 		wp_enqueue_style( 'aktualnosti_less', trailingslashit( get_template_directory_uri() ) . 'css/custom/aktualnosti.less' , array( 'unsemanticgrid' ), '1.0.0', 'all' );
@@ -389,7 +392,10 @@ if ( ! function_exists( 'sitepointbase_scripts_styles' ) ) {
 		wp_enqueue_style( 'cars_less', trailingslashit( get_template_directory_uri() ) . 'css/custom/cars.less' , array( 'unsemanticgrid' ), '1.0.0', 'all' );
 		wp_enqueue_style( 'contact_less', trailingslashit( get_template_directory_uri() ) . 'css/custom/contact.less' , array( 'unsemanticgrid' ), '1.0.0', 'all' );
 		wp_enqueue_style( 'newsbox_less', trailingslashit( get_template_directory_uri() ) . 'css/custom/newsbox.less' , array( 'unsemanticgrid' ), '1.0.0', 'all' );
+		wp_enqueue_style( 'newsbox_akcije', trailingslashit( get_template_directory_uri() ) . 'css/custom/akcije.less' , array( 'unsemanticgrid' ), '1.0.0', 'all' );
+		wp_enqueue_style( 'newsbox_arhiv', trailingslashit( get_template_directory_uri() ) . 'css/custom/arhiv.less' , array( 'unsemanticgrid' ), '1.0.0', 'all' );
 		wp_enqueue_style( 'socialicons_less', trailingslashit( get_template_directory_uri() ) . 'css/custom/socialicons.less' , array( 'unsemanticgrid' ), '1.0.0', 'all' );
+		wp_enqueue_style( 'timeline-content_less', trailingslashit( get_template_directory_uri() ) . 'css/custom/timeline-content.less' , array( 'unsemanticgrid' ), '1.0.0', 'all' );
 		
 		wp_localize_script( 'theme_main', 'ajax', array(
 				'ajax_url' => admin_url( 'admin-ajax.php' )
@@ -1016,8 +1022,8 @@ background-position: 0 0;
 ';
 }
 
-//add_action( 'login_enqueue_scripts', 'my_login_logo' );
-//add_action('wp_before_admin_bar_render', 'wpb_custom_logo');
+add_action( 'login_enqueue_scripts', 'my_login_logo' );
+add_action('wp_before_admin_bar_render', 'wpb_custom_logo');
 
 
 
@@ -1028,7 +1034,7 @@ pll_register_string( "badge_new", "novo");
 pll_register_string( "btn_signup", "prijava");
 pll_register_string( "contact", "Kontakt");
 //----------------------------------------------------------------------------
-//add_action( 'init', 'my_script_enqueuer' );
+add_action( 'init', 'my_script_enqueuer' );
 
 function my_script_enqueuer() {
    wp_register_script( "products", WP_PLUGIN_URL.'/ajax-products/products.js', array('jquery') );
@@ -1039,7 +1045,6 @@ function my_script_enqueuer() {
 
 }
 
-
 /**
  * This function modifies the main WordPress query to include an array of 
  * post types instead of the default 'post' post type.
@@ -1049,13 +1054,14 @@ function my_script_enqueuer() {
  */
 function av_cpt_search( $query ) {
     if ( $query->is_search ) {
-		$query->set( 'post_type', array( 'post', 'page', 'products' ) );
+		$query->set( 'post_type', array( 'post', 'page', 'post_type_products' ) );
     }
     
     return $query;
 }
 
-//add_filter( 'pre_get_posts', 'av_cpt_search' );
+add_filter( 'pre_get_posts', 'av_cpt_search' );
+
 
 /*
 * Include helper functions

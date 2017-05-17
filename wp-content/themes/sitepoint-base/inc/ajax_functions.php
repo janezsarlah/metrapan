@@ -39,7 +39,7 @@ function getSecondFilter() {
     // Remove duplicates
     if ( count($categoryes) > 0 ) {
     	$categoryes = unique_multidim_array( $categoryes );
-    	$response = prepareList( $categoryes, $_POST['postType'] );
+    	$response = prepareList( $categoryes, $_POST['postType'], $_POST['tax'] );
     }
    
 
@@ -84,8 +84,8 @@ function my_user_test() {
         
         $html .= "<li>";
         
-        $html .= "<div class='produktlist-title'>".$title."</div>";
         $html .= "<a href='".$link."'><div class='produktlist-imagecontainer' style='background-image: url(".$image.");'></div></a>";
+        $html .= "<div class='produktlist-title'>".$title."</div>";
         $html .= "<div class='produktlist-text'>".$text."</div>";
         $html .= "<div class='showmore button1 produktlist-btn'><a href='".$link."'>Več</a></div>";
         $html .= "</li>";
@@ -131,15 +131,16 @@ function unique_multidim_array( $array ) {
 } 
 
 
-function prepareList( $array, $postType ) {
+function prepareList( $array, $postType, $tax ) {
 	$html = '';
 	$html .= '<ul>';
 
 
 	foreach ($array as $arr) {
         $html .= '<li>' .
-             '		<div class="produkticons-iconcontainer" data-posttype="' . $postType . '" data-catslug="' . $arr->slug . '"><img src="' . get_template_directory_uri() . '/img/' . $arr->slug . '.png" class="produkticons-icon">' .
-             '		<div class="produkticons-title">' . getCategoryName( $arr->slug ) . '</div></div>' .
+             '		<div class="produkticons-iconcontainer" data-posttype="' . $postType . '" data-catslug="' . $arr->slug . '">' .
+             '      <img data-icon="' . get_template_directory_uri() . '/img/' . $arr->slug . '.png" data-iconwhite="' . get_template_directory_uri() . '/img/' . $arr->slug . '_white.png" src="' . get_template_directory_uri() . '/img/' . $arr->slug . '.png" class="produkticons-icon">' .
+             '		<div class="produkticons-title">' . getCategoryName( $arr->slug, $tax ) . '</div></div>' .
              '	</li>' ;
 	}
 

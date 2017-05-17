@@ -41,13 +41,35 @@ function getPostCategorys( $args ) {
 }
 
 /**
+ * Get cateoryes by taxonomy
+ *
+ * @param Taxonomy slug
+ * @return Array of categoryes
+ */
+function getPostCategorysByTaxonomy( $taxonomy ) {
+	$arrayOfCats = [];
+
+	$catObject = get_terms($taxonomy);
+
+	if ($catObject != null) {
+		foreach ($catObject as $cat) {
+			if (!in_array( $cat->slug, $arrayOfCats) && $cat->parent == 0 && $cat->count > 0 ) array_push( $arrayOfCats, $cat->slug );
+		}
+	}
+
+	return $arrayOfCats;
+}
+
+
+/**
  * Get category object
  *
  * @param Category slug
+ * @param Taxonomy slug
  * @return Category object
  */
-function getCategoryName( $catSlug ) {
-	return get_term_by('slug',  $catSlug, 'kategorijeproduktov')->name;
+function getCategoryName( $catSlug, $taxonomy ) {
+	return get_term_by('slug',  $catSlug, $taxonomy)->name;
 }
 
 /**
@@ -56,8 +78,8 @@ function getCategoryName( $catSlug ) {
  * @param Category slug
  * @return INT number of associated posts
  */
-function getNumbAssociatedposts( $catSlug ) {
-	return get_term_by('slug',  $catSlug, 'kategorijeproduktov')->count;
+function getNumbAssociatedposts( $catSlug, $taxonomy ) {
+	return get_term_by('slug',  $catSlug, $taxonomy)->count;
 }
 
 /**
@@ -65,18 +87,19 @@ function getNumbAssociatedposts( $catSlug ) {
  *
  * @param Post type
  * @param Category slug
+ * @param Taxonomy slug
  * @return False if more than one post and post if one post
  */
-function getNumberOfProductsByCat( $postType, $catSlug ) {
+function getNumberOfProductsByCat( $postType, $catSlug, $taxonomy ) {
 	$posts = get_posts([
 		'post_type' => $postType,
         'posts_per_page' => 500,
     	'post_status' => 'any',
         'post_parent' => null,
-        'kategorijeproduktov' => $catSlug
+        $taxonomy => $catSlug
 	]);
 
-	if ( getNumbAssociatedposts( $catSlug ) > 1 ) return false;
+	if ( getNumbAssociatedposts( $catSlug, $taxonomy ) > 1 ) return false;
 
 	return $posts[0];
 }
